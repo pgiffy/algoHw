@@ -183,6 +183,72 @@ triples. Design an algorithm that takes $\mathtt{buildings}$ as input, and
 returns the skyline, where the skyline is a sequence of $(x,y)$ coordinates
 defining $\cup_{b \in \mathtt{buildings}} \mathtt{rect}(b)$.
 
+Goal is to use a divide and conquer algorithm (said in class).
+
+  	\begin{algorithm}
+	\caption{Skyline Problem}\label{skyline}
+        \begin{algorithmic}[1]
+		 \Procedure{getSkyline}{$buildingCoord$}
+		 \State \textbf{in: } list of skyline variables as buildingCoord.
+		 \State \textbf{out: } final list of coord for the skyline.
+		 \State return calculateSkyline(buildingCoord, 0, buildingCoord.size() - 1)	
+		 \EndProcedure
+		 
+		 \Procedure{calculateSkyline}{$arr, l, h$}
+		 \State \textbf{in: } list of coordinate as arr, the low spot in the array as l, the high spot in the array as h
+		 \State \textbf{out: } list of coordinate for the skyline
+		 
+		 \If{$ l == h $}\Comment{what method returns once there is no more options to split}
+		 \State $res \gets list;$
+		 \State res.add(arr[0],arr[1]);
+		 \State res.add(arr[2],0);
+		 \State return res;
+		 \EndIf
+		 
+		 \State $mid\gets (l + h)/2$\Comment{Splitting down the middle like merge sort}
+		 
+		 \State $listLeft \gets calculateSkyline(arr, l, mid);$
+		 \State $listRight \gets calculateSkyline(arr, mid + 1, h);$
+		 \State $toReturn \gets mergeSkylines(listLeft, listRight)$
+		 \State return toReturn;
+		 
+		 \EndProcedure
+		 
+		 \Procedure{mergeSkylines}{$left, right$}
+		  \State \textbf{in: } lists of coordinate needed to be merged as left, right
+		 \State \textbf{out: } merged and 'sorted' lists of the resulting skyline
+		 \State $toReturn \gets list$
+		 \State $i, j \gets 0$
+		 \State $heightLeft, heightRight \gets 0$
+		\While{$i < left.size() \&\& j < right.size()$}
+		\If{$left[i][0] < right[j][0]$}
+		\State $x \gets left[i][0];$
+		\State $heightLeft \gets left[i][2];$
+		\State $maxHeight \gets max(heightLeft, heightRight);$\Comment{max gets the maximum value of values entered since only the tallest building can be seen}
+		\State toReturn.add((x, maxHeight));
+		\State $i \gets i + 1;$
+		\Else
+		\State $x \gets right[i][0];$
+		\State $heightRight \gets right[i][2];$
+		\State $maxHeight \gets max(heightLeft, heightRight);$
+		\State toReturn.add((x, maxHeight));
+		\State $j \gets j + 1;$
+		\EndIf
+		\EndWhile
+		\While{$i < left.size()$}\Comment{If one list is bigger than the other we need to add all the rest of the skylines because we can see all of them.}
+		\State $toReturn \gets left[i];$
+		\State $i \gets i + 1;$
+		\EndWhile
+		\While{$j < right.size()$}
+		\State $toReturn \gets right[i];$
+		\State $j \gets j + 1;$
+		\EndWhile
+		\State return toReturn;
+		\EndProcedure
+		 
+	\end{algorithmic}
+	\end{algorithm}
+
 \nextprob
 The \texttt{rand()} function in the standard C library returns a
 uniformly random number in \texttt{[0,RANDMAX-1]}. Does \texttt{rand}()$\mod n$

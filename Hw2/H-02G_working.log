@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  14 SEP 2019 11:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  15 SEP 2019 17:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -440,37 +440,40 @@ Overfull \hbox (18.06752pt too wide) in paragraph at lines 174--174
  | [] 
  []
 
+
+LaTeX Warning: Float too large for page by 39.63829pt on input line 250.
+
 [8
 
-]
-Overfull \hbox (18.06752pt too wide) in paragraph at lines 186--186
+] [9]
+Overfull \hbox (18.06752pt too wide) in paragraph at lines 252--252
  | [] 
  []
 
-[9
-
-]
-Overfull \hbox (18.06752pt too wide) in paragraph at lines 196--196
- | [] 
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 215.
 [10
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 215.
+Overfull \hbox (18.06752pt too wide) in paragraph at lines 262--262
+ | [] 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 281.
+[11
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 281.
  (./H-02G_working.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 215.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 215.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 281.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 281.
 Package rerunfilecheck Info: File `H-02G_working.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 215.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 281.
  ) 
 Here is how much of TeX's memory you used:
- 6795 strings out of 492616
- 96010 string characters out of 6129482
- 198652 words of memory out of 5000000
- 10630 multiletter control sequences out of 15000+600000
+ 6801 strings out of 492616
+ 96080 string characters out of 6129482
+ 201677 words of memory out of 5000000
+ 10634 multiletter control sequences out of 15000+600000
  7738 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,7n,45p,336b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -488,10 +491,10 @@ xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texl
 ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texliv
 e/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on H-02G_working.pdf (10 pages, 153686 bytes).
+Output written on H-02G_working.pdf (11 pages, 159229 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
- 21 named destinations out of 1000 (max. 500000)
+ 126 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
+ 23 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
