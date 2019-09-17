@@ -16,17 +16,107 @@ input, and returns a merged list of sorted numbers.  You should give your answer
 in pseudocode.    Your answer should contain:
 \begin{itemize}
     \item A prose explanation of the algorithm.
+    
+     This algorithm works by keeping a pointer on one item in each list. Using these pointers we can check how a number in one list compares to a spot in the other list. If the numbers are the same then they can be added both to the list and increment both pointers, if one is smaller than the other then we can add that to the list and increment that pointer. This way the pointers walk through the lists only having to check each item one time and putting them into a new list that is still sorted.
+     
     \item Psuedocode. (Be sure to review the two resources on pseudocode that were
         posted as readings for Week 2!  I also suggest the algorithm /
         algorithmx package in LaTex.)
+        
+        See Below
+        
+         \begin{algorithm}
+        \caption{Merged list of sorted numbers from two sorted lists}\label{sorted list}
+        \begin{algorithmic}[1]
+        \Procedure{Merge}{$A,B$}\Comment{A and B are sorted lists this sorts them into list c}
+        		\State \textbf{in:}  Sorted lists A,B
+		\State \textbf{out:}  Sorted list c, the combination of A and B
+        		\State $c\gets list;$
+		\State $i, j\gets 0;$
+		\While{$i < A.size()  \&\&  j < B.size()$}
+			\If{$A.get(i) == B.get(j)$}
+				\State c.add(A.get(i), B.get(j));
+				\State i++;
+				\State j++;
+			\ElsIf{$A.get(i) < B.get(j)$}
+				\State c.add(A.get(i));
+				\State i++;
+			\ElsIf{$A.get(i) > B.get(j)$}
+				\State c.add(B.get(j))
+				\State j++;
+			\EndIf
+		\EndWhile
+		\If{$i == A.size()$}
+			\While{$j < B.size()$}
+				\State c.add(B.get(j));
+				\State j++;
+			\EndWhile
+		\EndIf
+		\If{$j == B.size()$}
+			\While{$i < A.size()$}
+				\State c.add(A.get(i));
+				\State i++;
+			\EndWhile
+		\EndIf
+		\State return c;
+	\EndProcedure
+	\end{algorithmic}
+	\end{algorithm}
+        
     \item The decrementing function for any loop or recursion.
+    
+ Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) = ( length(A) + length(B) )-(i + j)\newline$
+    
+    Each time through the loop either $i,j$ or both are incremented. The are in $\N$ and therefore eventually $i + j$ must eventually equal $ length(A) + length(B) $ and therefore break the loop.
+
+    Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) =  length(A) - i\newline $
+
+    Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) =  length(B) - j\newline$
+    
+    For the two loops above on each iteration, either i or j will be incremented and will eventually hit the same length as the list they are being subtracted from and therefore hit zero and break the loop.
+    
+   
+
+    
     \item Justification of why the runtime is linear.
+    
+        The algorithm will go through every item in the lists exactly once since the counters i and j will increment until they hit the array size and therefore no item in the lists will be have more than O(1) spent on it. This mean that O(A.size()+B.size()) is the complexity and therefore it is run in linear time.
+    
 \end{itemize}
 
 \nextprob
 EPI 15.4 (Generate the Power Set) gives code to compute the power set of a set
 (without duplicates).  Present this problem and solution in your own words using
 pseudocode.
+
+  	\begin{algorithm}
+	\caption{Power Sets}\label{power sets}
+        \begin{algorithmic}[1]
+		 \Procedure{generatePowerSets}{$inputSet$}\Comment{Startup function}
+		 \State \textbf{in:} List of integers that is a the inputSet
+		 \State \textbf{out: } List of Lists of Integers that are the power sets;  
+		 \State powerSet $\gets$ list;
+		 \State newList $\gets$ list;
+		 \State directedPowerSet(inputSet, 0, newList, powerSet);
+		 \State return powerSet;
+		 \EndProcedure
+		 
+		 \Procedure{directedPowerSet}{$inputSet, toBeSelected, selectedSoFar, powerSet$}
+		 	\State \textbf{in:} inputSet : the original input set, toBeSelected : the spot in inputSet that the algorithm is checking, selectedSoFar : list of spots in inputSet already checked, powerSet : list of power sets already selected
+			\State \textbf{out: } None
+		 	\If{$toBeSelected == inputSet.size()$}
+				\State powerSet.add(selectedSoFar.asList());\Comment{Adds all of selected so far because they represent a powerSet to powerSet and ends because there is nothing left to check}
+				\State return;
+			\EndIf
+			\State selectedSoFar.add(inputSet.get(toBeSelected)); 
+			\State directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
+			\State selectedSoFar.remove(selectedSoFar.size() - 1);
+			\State directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
+		 \EndProcedure
+	\end{algorithmic}
+	\end{algorithm}
+
+This algorithm is aimed at getting all the possible sets that can be made from a given set. The solution above uses a form of recursion to repeatedly add and remove elements from the recursion branch so that it can reach the bottom and generate a new set.
 
 \nextprob
 In EPI 15.1 (The Towers of Hanoi Problem), prove that the algorithm as presented
@@ -38,6 +128,12 @@ For the stock market problem discussed in class on September 6th (and in CLRS
 4.1), walk through
 the algorithm for the following input:
 $$\mathtt{price} = \{ 3, 6, 8, 2, 1, 10, 5, 7 \}. $$
+
+BuySell(\{n[1]:3, n[2]:6, n[3]:8, n[4]:2\}), BuySell(\{n[5]:1, n[6]:10, n[7]:5, n[8]:7\})\newline
+BuySell(\{n[1]:3,n[2]: 6\}) BuySell(\{n[3]:8, n[4]:2\}), BuySell(\{n[5]:1, n[6]:10\}), BuySell(\{n[7]:5, n[8]:7\})\newline
+compare(\{n[1]:3,n[2]:6\},\{n[3]:2,n[4]:8\},\{n[1]:3,n[4]:8\}) = \{n[3]:2,n[4]:8\}, compare(\{n[5]:1,n[6]:10\},\{n[7]:5, n[8]:7\},\{n[5]:1,n[8]:7\}) = \{n[5]:1, n[6]:10\}\newline
+compare(\{n[3]:2,n[4]:8\},\{n[5]:1,n[6]:10\},\{n[3]:2,n[6]:10\}) = \{n[5]:1,n[6]:10\}\newline
+result = \{n[5],n[6]\}
 
 \nextprob
 Prove using induction that the closed form of:
@@ -53,10 +149,37 @@ What is the closed form of the following recurrence relations?  Use Master's
 theorem to justify your answers:
 \begin{enumerate}
     \item $T(n) = 16 T(n/4) + \Theta(n)$
+    
+    $a = 16, b = 4, n^2, f(n) = n, case  1\newline$
+    $\epsilon = 1$
+    T(n) =  $\Theta(n^2)$
+    
     \item $T(n) = 2 T(n/2) + n \log{n}$
+    
+    $a = 2, b = 2, n^1, f(n) = n\log{n}, case 3\newline$
+    $f(n) = \Theta(n^c), c = 2\newline$
+    $\log_{2}2 < 2$ satisfies condition for case 3 \newline
+    T(n) = $\Theta(n\log{n})$
+    
     \item $T(n) = 6 T(n/3) + n^2 \log{n}$
+    
+   $a = 6, b = 3, n^1.6, f(n) = n^2, case 3\newline$
+   $f(n) = \Theta(n^c), c = 2\newline$
+    $\log_{3}6 < 2$ satisfies condition for case 3 \newline
+    T(n) = $\Theta(n^2)$
+    
     \item $T(n) = 4 T(n/2) + n^2$
+    
+    $a = 4, b = 2, n^2, f(n) = n^2, case 2 \newline$
+    T(n) = $\Theta(n^2\log{n})$
+    
     \item $T(n) = 9 T(n/3) + n$
+    
+    $a = 9, b = 3, n^2, f(n) = n, case 1\newline$
+    $\epsilon = 1$
+    T(n) = $\Theta(n^2)$
+    
+    
 \end{enumerate}
 Note: we assume that $T(1)=\Theta(1)$ whenever it is not explicitly given.
 
@@ -71,6 +194,72 @@ points inside this rectangle (including the boundary).  Let $\mathtt{building}$ 
 triples. Design an algorithm that takes $\mathtt{buildings}$ as input, and
 returns the skyline, where the skyline is a sequence of $(x,y)$ coordinates
 defining $\cup_{b \in \mathtt{buildings}} \mathtt{rect}(b)$.
+
+Goal is to use a divide and conquer algorithm (said in class).
+
+  	\begin{algorithm}
+	\caption{Skyline Problem}\label{skyline}
+        \begin{algorithmic}[1]
+		 \Procedure{getSkyline}{$buildingCoord$}
+		 \State \textbf{in: } list of skyline variables as buildingCoord.
+		 \State \textbf{out: } final list of coord for the skyline.
+		 \State return calculateSkyline(buildingCoord, 0, buildingCoord.size() - 1)	
+		 \EndProcedure
+		 
+		 \Procedure{calculateSkyline}{$arr, l, h$}
+		 \State \textbf{in: } list of coordinate as arr, the low spot in the array as l, the high spot in the array as h
+		 \State \textbf{out: } list of coordinate for the skyline
+		 
+		 \If{$ l == h $}\Comment{what method returns once there is no more options to split}
+		 \State $res \gets list;$
+		 \State res.add(arr[0],arr[1]);
+		 \State res.add(arr[2],0);
+		 \State return res;
+		 \EndIf
+		 
+		 \State $mid\gets (l + h)/2$\Comment{Splitting down the middle like merge sort}
+		 
+		 \State $listLeft \gets calculateSkyline(arr, l, mid);$
+		 \State $listRight \gets calculateSkyline(arr, mid + 1, h);$
+		 \State $toReturn \gets mergeSkylines(listLeft, listRight)$
+		 \State return toReturn;
+		 
+		 \EndProcedure
+		 
+		 \Procedure{mergeSkylines}{$left, right$}
+		  \State \textbf{in: } lists of coordinate needed to be merged as left, right
+		 \State \textbf{out: } merged and 'sorted' lists of the resulting skyline
+		 \State $toReturn \gets list$
+		 \State $i, j \gets 0$
+		 \State $heightLeft, heightRight \gets 0$
+		\While{$i < left.size() \&\& j < right.size()$}
+		\If{$left[i][0] < right[j][0]$}
+		\State $x \gets left[i][0];$
+		\State $heightLeft \gets left[i][2];$
+		\State $maxHeight \gets max(heightLeft, heightRight);$\Comment{max gets the maximum value of values entered since only the tallest building can be seen}
+		\State toReturn.add((x, maxHeight));
+		\State $i \gets i + 1;$
+		\Else
+		\State $x \gets right[i][0];$
+		\State $heightRight \gets right[i][2];$
+		\State $maxHeight \gets max(heightLeft, heightRight);$
+		\State toReturn.add((x, maxHeight));
+		\State $j \gets j + 1;$
+		\EndIf
+		\EndWhile
+		\While{$i < left.size()$}\Comment{If one list is bigger than the other we need to add all the rest of the skylines because we can see all of them.}
+		\State $toReturn \gets left[i];$
+		\State $i \gets i + 1;$
+		\EndWhile
+		\While{$j < right.size()$}
+		\State $toReturn \gets right[i];$
+		\State $j \gets j + 1;$
+		\EndWhile
+		\State return toReturn;
+		\EndProcedure
+		 
+	\end{algorithmic}
+	\end{algorithm}
 
 \nextprob
 The \texttt{rand()} function in the standard C library returns a
