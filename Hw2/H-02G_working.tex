@@ -16,9 +16,14 @@ input, and returns a merged list of sorted numbers.  You should give your answer
 in pseudocode.    Your answer should contain:
 \begin{itemize}
     \item A prose explanation of the algorithm.
+    
+     This algorithm works by keeping a pointer on one item in each list. Using these pointers we can check how a number in one list compares to a spot in the other list. If the numbers are the same then they can be added both to the list and increment both pointers, if one is smaller than the other then we can add that to the list and increment that pointer. This way the pointers walk through the lists only having to check each item one time and putting them into a new list that is still sorted.
+     
     \item Psuedocode. (Be sure to review the two resources on pseudocode that were
         posted as readings for Week 2!  I also suggest the algorithm /
         algorithmx package in LaTex.)
+        
+        See Below
         
          \begin{algorithm}
         \caption{Merged list of sorted numbers from two sorted lists}\label{sorted list}
@@ -60,12 +65,18 @@ in pseudocode.    Your answer should contain:
         
     \item The decrementing function for any loop or recursion.
     
-        { D(x) : x = ( length(A) + length(B) )-(i + j) } $\rightarrow \mathbb{Z} \newline$
-    Loop terminates when D reaches 0. \newline
-    { D(x) : x = ( length(A) - i ) } $\rightarrow \mathbb{Z} \newline$
-     Loop terminates when D reaches 0. \newline
-    { D(x) : x = ( length(B) - j ) } $\rightarrow \mathbb{Z} \newline$
-     Loop terminates when D reaches 0. \newline
+ Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) = ( length(A) + length(B) )-(i + j)\newline$
+    
+    Each time through the loop either $i,j$ or both are incremented. The are in $\N$ and therefore eventually $i + j$ must eventually equal $ length(A) + length(B) $ and therefore break the loop.
+
+    Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) =  length(A) - i\newline $
+
+    Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) =  length(B) - j\newline$
+    
+    For the two loops above on each iteration, either i or j will be incremented and will eventually hit the same length as the list they are being subtracted from and therefore hit zero and break the loop.
+    
+   
+
     
     \item Justification of why the runtime is linear.
     
@@ -105,6 +116,7 @@ pseudocode.
 	\end{algorithmic}
 	\end{algorithm}
 
+This algorithm is aimed at getting all the possible sets that can be made from a given set. The solution above uses a form of recursion to repeatedly add and remove elements from the recursion branch so that it can reach the bottom and generate a new set.
 
 \nextprob
 In EPI 15.1 (The Towers of Hanoi Problem), prove that the algorithm as presented
