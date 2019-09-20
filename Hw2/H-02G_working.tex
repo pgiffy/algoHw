@@ -5,7 +5,7 @@
 %% UPDATE these variables:
 \renewcommand{\hwnum}{2}
 \author{Peter Gifford, Ren Wall, Kyle Brekke, Madison Hanson Group: 7}
-\collab{}
+\collab{~}
 \date{due: 20 September 2019}
 
 \begin{document}
@@ -160,6 +160,12 @@ $$T(n) = \begin{cases}
          \end{cases}
 $$
 is $O(n^2)$.
+
+Proof by induction:\\
+Base Case: $T(1) = 1$ takes $1$ step.\\
+Inductive assumption: $T(n-1)$ takes $m$ steps.\\
+Inductive Step: $T(n)$ takes one more step than $t(n-1)$ so $T(n)$ takes $m + 1$ steps.\\
+By induction we can see that $m + 1 = n$ so $T(n)$ takes $n$ steps. $T(n) \in O(n) \subset O(n^2 )$
 
 \nextprob
 What is the closed form of the following recurrence relations?  Use Master's
