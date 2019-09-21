@@ -6,6 +6,7 @@
 \newcommand{\N}{\mathbb{N}}
 %% UPDATE these variables:
 \renewcommand{\hwnum}{2}
+\graphicspath{ {./images/} }
 \author{Peter Gifford, Ren Wall, Kyle Brekke, Madison Hanson Group: 7}
 \collab{~}
 \date{due: 20 September 2019}
@@ -309,14 +310,97 @@ probability of being correct or close to correct.
 
 \begin{enumerate}[(a)]
     \item Give a Monte Carol algorithm to estimate~$\pi$.
+    
+    (algorithm taken from http://www.eveandersson.com/pi/monte-carlo-circle)
+    
+    Have a circle of radius R inside a square of 2R by 2R.
+    
+    Generate n numbers randomly.
+    
+    The numbers that are inside of the circle are M.
+    
+    \[ pi = \frac{4*M}{N} \]
+    
     \item Let $n$ be the number of random numbers used by your algorithm.
         Explain why as $n \to \infty$, the expectation of the output for your
         algorithm is~$\pi$.
+        
+    Proof: 
+    
+    As $n \to \infty $, the expectation of our output is $\pi$.
+    
+    Since the area of the square of size 2R by 2R divided by the area of the circle equals to pi/4 the amount of random points that fall in the circle divided by the amount of random points that are generated will be equivalent to that same circle and square ratio, which then divided by four calculates $\pi$.
+    
+    Thus as $n \to \infty $, the expectation of our output is $\pi$, which was to be shown.
+    
     \item Implement this algorithm and plot a line graph of
-        the values returned for at least $10$ values of~$n$.
+        the values returned for at least $10$ values of~$n$. Code for implementation in Appendix A.
+
+        
+       \includegraphics[scale=1]{graph}
+        
+        
+        
+        
 \end{enumerate}
 
 Note: We can use the function \texttt{randReal}$(a,b)$ that returns a random
 real number between $a$ and $b$ inclusive.
+
+\nextprob
+Appendix A Code for implementation of Monte Carlo Method:
+
+import java.util.Random;
+
+public class CarloMonteAndHisPython\{
+
+\quad     public static void main(String []args)\{
+
+\quad \quad        double circleArea = 12.5663706144;
+
+\quad \quad        double squareArea = 16.0;
+
+\quad \quad        double random =0.0;
+
+\quad \quad        double pi = 0.0;
+
+\quad \quad        int inCircle = 0;
+
+\quad \quad        int inSquare = 0;
+
+\quad \quad        int n = 0;
+
+\quad \quad        Random randomizer = new Random();
+        
+\quad \quad        for(int i = 0; i <1000;i++)\{
+
+\quad \quad \quad            random =randomizer.nextDouble()*16.0;
+
+\quad \quad \quad             if(random > circleArea)\{
+
+\quad \quad \quad \quad                 inSquare = inSquare + 1;
+
+\quad \quad \quad             \}else if(random <= circleArea)\{
+
+\quad \quad \quad \quad                 inSquare = inSquare + 1;
+
+\quad \quad \quad \quad                 inCircle = inCircle + 1;
+
+\quad \quad \quad             \}
+
+\quad \quad \quad             n=i;
+\quad \quad        \}
+\quad \quad  
+\quad \quad          n=n+1;
+
+\quad \quad          pi = (4.0*(inCircle))/(inSquare);
+
+        
+        
+\quad \quad          System.out.println("Pi using the Monte Carlo method with "+n+" digits is "+pi);
+        
+     \}
+
+\}
 
 \end{document}
