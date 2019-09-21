@@ -1,14 +1,15 @@
 \documentclass{article}
 \usepackage{../fasy-hw}
 \usepackage{ wasysym }
+\usepackage{graphicx}
 
 
 \newcommand{\N}{\mathbb{N}}
 %% UPDATE these variables:
 \renewcommand{\hwnum}{2}
 \graphicspath{ {./images/} }
-\author{Peter Gifford, Ren Wall, Kyle Brekke, Madison Hanson Group: 7}
-\collab{~}
+\author{Group: 7}
+\collab{Peter Gifford, Ren Wall, Kyle Brekke, Madison Hanson}
 \date{due: 20 September 2019}
 
 \begin{document}
@@ -126,6 +127,29 @@ This algorithm is aimed at getting all the possible sets that can be made from a
 In EPI 15.1 (The Towers of Hanoi Problem), prove that the algorithm as presented
 terminates.  In particular, you should give the decrementing function for the
 recursion.
+
+\textbf{Proof:}
+
+\noindent{In order to prove that the provided algorithm terminates, we must show that the recursive component of the algorithm can be represented as a decrementing function.}
+
+\noindent{In order for a given function to be a decrementing function, it must have the following qualities:}
+
+\begin{enumerate}
+	\item The function must have an integer value indicating the current conditions of a given loop.
+	\item The function must have a predefined value greater than zero before entering the loop.
+	\item The function must have a well-ordered co-domain which it decrements over.
+	\item The function must terminate when its value reaches zero.
+\end{enumerate}
+
+\noindent{Let $D$ be the function representing the current state of the recursive loop in the provided algorithm. $D$ can be represented as $D(n) = D_1(n-1) + D_2(n-1)$, where $D(n)$ is the value of $D$ at $n$. This therefor means that $D_1(n-1)$ is the first recursive step in the algorithm, and $D_2(n-1)$ is the second recursive step in the algorithm. Since this function describes an integer value and is applicable to the algorithm, the first requirement holds for $D$.}
+
+\noindent{$D$ initially begins with a value of $2n$, where $n$ is the number of rings which need to be moved. Because $D$ has a predefined initial value before entering the recursion, the second criterion for $D$ to be a decrementing function holds.}
+
+\noindent{There are two cases which occur during each recursive step of $D$, we either step into $D_1(n-1)$ or $D_2(n-1)$. In both cases, the value of $D$ decrements by one. This occurs over the co-domain of $(2n, 2n-1, ..., 1, 0)$, which is well-defined with a minimum value $0$. Due to this, the third requirement holds for $D$.}
+
+\noindent{Finally, when $D$ reaches zero, the current recursive loop ends. This holds true for every recursive step of $D$ as well. Because of this, the last requirement holds for $D$.}
+
+\noindent{Because the aforementioned requirements for $D$ to be a decrementing function have been met, we can conclude that $D$ is a decrementing method which describes the provided algorithm. Because $D$ is a decrementing function, we can conclude that the provided algorithm terminates.}
 
 \nextprob
 For the stock market problem discussed in class on September 6th (and in CLRS
