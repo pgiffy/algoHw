@@ -46,6 +46,25 @@ problem and solution in your own words, including the use of pseudocode (with
 more details than what was written in class).  Note: you do not need to give a
 loop invariant and the proof of termination/runtime complexity.
 
+
+The Greedy make change algorithm is meant to create one of the optimal solutions for making change, that is, to create change using the lowest number of coins. The solution to implement the Greedy make change algorithm is to sort an array of each denomination the currency being used has from large to small, iterate through the number of denominations the currency you are using has, and for each of the current denominations that you are at in the array add as many to the solution that don't cause the solution to go beyond the value of change you want to create. After you have iterated through the loop the solution you will have created will have the minimum number of coins given the currency used is a currency that the greedy make change algorithm works for. 
+
+
+greedyMakeChange(changeValue, denominations ={[$d_1$,..., $d_k$]})]
+
+sort denominations from largest to smallest.
+ 
+for i = 1 to k
+
+\quad 	add as many d{[i]} to the set solution without exceeding changeValue
+
+endfor
+
+return the set solution.
+
+
+
+
 \nextprob
 Suppose we have $n$ items hat we want to put in a knapsack of capacity $W$.  The i-th item has
 weight $w_i$ and value $v_i$.  The knapsack can hold a total weight of $W$ and
