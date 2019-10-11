@@ -1,11 +1,15 @@
 \documentclass{article}
 \usepackage{../fasy-hw}
 \usepackage{ wasysym }
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{graphicx}
 
+\newcommand{\N}{\mathbb{N}}
 %% UPDATE these variables:
 \renewcommand{\hwnum}{3}
-\author{TODO-Your Group Number and Names Here}
-\collab{TODO-list your collaborators here}
+\author{Group: 7 Names: Peter Gifford, Kyle Brekke, Madison Henson, Ren Wall}
+\collab{None}
 \date{due: 18 October 2019}
 
 \begin{document}
@@ -26,7 +30,7 @@ are expected to give:
     \item Justification of why the runtime is linear.
     \item The loop invariant for any loops, with full justification.
 \end{itemize}
-
+   
 \nextprob
 Suppose we have a graph $G=(V,E)$ and three colors, and randomly assign a color
 each node (where each color is equally likely).
@@ -66,7 +70,7 @@ return the set solution.
 
 
 \nextprob
-Suppose we have $n$ items hat we want to put in a knapsack of capacity $W$.  The i-th item has
+Suppose we have $n$ items that we want to put in a knapsack of capacity $W$.  The i-th item has
 weight $w_i$ and value $v_i$.  The knapsack can hold a total weight of $W$ and
 we want to maximize the value of the items in the knapsack.
 The \emph{0-1 knapsack problem} will assign each item one of two states: in the
@@ -74,8 +78,86 @@ knapsack, or not in the knapsack.  The \emph{fractional knapsack problem} allows
 you to take a percentage of each item.
 \begin{enumerate}
     \item Give an $O(n\log n)$ greedy algorithm for the fractional knapsack problem.
+    \newline\newline
+    
+    This is a greedy solution to the knapsack problem. To make a greedy strategy work we find the ratio of value to weight for every item and put in items with the best ratio (largest) until the bag is full.
+    \begin{algorithm}
+    \begin{algorithmic}
+    \Procedure{greedyKnapsack}{weight, value, capacity}\newline
+    	\textbf{in: } weight - list of weights of items, value - list of associated values for items, capacity - capacity of weights the sack can hold\newline
+	\textbf{out: } list of best items to add to knapsack
+	\State $addedWeight \gets 0$
+	\State $itemNum \gets []$
+	\State $iter \gets 0$
+	\State $proportions \gets []$
+	\For{$i \gets 0, i < weight.length, i\gets i+1$}
+		\State $proportions.add((i, value[i]/weight[i])) $
+	\EndFor
+	\State $proportion \gets proportions.sortLowToHigh$\Comment{Uses Mergesort to sort high to low based on proportion}
+	\While{$addedWeight \leq capacity$}
+		\State $addedWeight \gets weight[proportion[iter][0]] + addedWeight$
+		\State $itemNum[iter] \gets propotion[iter][0]$ \Comment{Adds the i value given to object to list of values to assign to knapsack}
+		\State $iter \gets iter + 1$
+	\EndWhile
+	\State return itemNum
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
+    \newline
+    Decrementing Functions: \newline
+     Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) = length(weight) -i\newline $
+   Each time through the first for loop, i increases by one which will bring it closer and closer to the length of weight and therefore it will eventually equal the length of weight which will break the loop.
+ Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) = capacity - addedWeight\newline $
+ Each time through the loop a new item weight from proportion is added to addedWeight. This will increase its value and bring it close to capacity in each loop and therefore will break the loop once it is equal to or greater than capacity. This assumes that there are enough items given in the problem to over fill the knapsack.
+ 
+ *There are recursive iterations found in the sorting function that is assumed to use merge sort. These have been previously proven to work and terminate and therefore I have left them out.
+
+    Justification of linear run time: The total runtime for this algorithm is not linear because of the sort, but the other elements of it are. The for loop goes through every element in the weight list and does not have any loops within it. Then the following while loop goes through at max as many items as there are in weight because weight was used in the for loop to establish the list of items\newline\newline
+    Loop Invariants:\newline 
+    For loop - proportions = (0, value[0]/weight[0])...(i, value[i]/weight[i])\newline
+    While Loop - addedWeight = weight[0]...weight[proportion[iter][0], itemNum = proportion[0][0]...proportion[iter][0]\newline
+
     \item Give an $O(nW)$ time algorithm that uses dynamic programming to solve
-        the 0-1 knapsack problem.
+        the 0-1 knapsack problem.\newline\newline
+        
+        This is a dynamic programming solution. It functions by building up a table of values so that they do not have to be computed twice. Using this we can cut out all the extra computations and build up to the best solution with few extra steps. While there are two for loops they use two finite values that do not grow with the increased options of items to put in the sack which is very efficient.
+        
+    \begin{algorithm}
+    \begin{algorithmic}
+    \Procedure{linearKnapsack}{weight, value, capacity}\newline
+    	\textbf{in: } weight - list of weights of items, value - list of associated values for items, capacity - capacity of weights the sack can hold\newline
+	\textbf{out: } Best possible value that can be fit in the bag.
+	\State $len \gets weight.length$
+	\State $grid \gets [len][capacity]$
+	\For{$i\gets0, i < len+1, i\gets i +1$}
+		\For{$j \gets 0, j < capacity + 1, j \gets j + 1$}
+			\If{i=0 or j=0} \Comment{Ignores first row so it has all 0s and no negative index}
+				\State $grid[i][j] \gets 0$
+			\ElsIf{$weight[i-1] \leq w$}
+				\State $grid[i][j] \gets max(value[i-1] + grid[i-1][j-weight[i-1]], grid[i-1][j])$\Comment{Fills grid spot with either the value being checked plus he best value of the last spot that is allowed weight wise or the previous best if it is better}
+			\Else
+				\State $grid[i][j] \gets grid[i-1][j]$ \Comment{Gets the previous best}
+			\EndIf
+		\EndFor
+	\EndFor
+	\State return grid[len][capacity]
+    \EndProcedure
+    \end{algorithmic}
+    \end{algorithm}
+	    Decrementing Functions: \newline
+     Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) = (len+1) -i\newline $
+     As i increases by one each time through the loop it will get closer to len and eventually equal it terminating the loop.
+       Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D \colon \mathbb{X} \to \N \cup \{0\}$ by $D( \mathbb{X}) = (capacity+1) -j\newline $
+     As j increases by one each time through the loop it will get closer to capacity and eventually equal it terminating the loop.
+ 
+     Justification of linear run time: \newline
+     The loops in this both go to different values despite the fact that they are nested, this makes the runtime O(len*capacity) because for every time it goes through len it must run through the entirety of capacity.
+    Loop Invariants:\newline
+    for loop base on len: Rows indexed 0 to i of grid are filled with values.
+    \newline
+    for loop base on capacity: Value index j  of row index i is filled with a value.
+    
+          
 \end{enumerate}
 
 \end{document}
