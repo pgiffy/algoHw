@@ -20,6 +20,13 @@ the same birthday is at least one half.  This is known as the birthday paradox,
 since the number 23 is probably much lower than you would expect.  How many
 people do we need in order to have 50\% probability that there are three people
 with the same birthday?
+
+88 people
+
+The probability $P$ that there exists $W \geq 1$ three person birthday collision for any particular number of people $n$ for any particular number of possible birthdays $m$ can be calculated with the following function:
+$$P(W \geq 1) = 1 - \sum^{n/2}_{i=0} \frac{m!n!}{i!(n-2i)!(m-n+i)!2^i m^n }$$
+
+
 As a reminder, when giving an algorithm as an answer, you
 are expected to give:
 \begin{itemize}
