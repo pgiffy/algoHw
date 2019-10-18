@@ -25,23 +25,30 @@ with the same birthday?
 
 The probability $P$ that there exists $W \geq 1$ three person birthday collision for any particular number of people $n$ for any particular number of possible birthdays $m$ can be calculated with the following function:
 $$P(W \geq 1) = 1 - \sum^{n/2}_{i=0} \frac{m!n!}{i!(n-2i)!(m-n+i)!2^i m^n }$$
-Using a simple algroithm that evaluates $P(W \geq 1)$ with $m = 365$ and increments $n$ from 1 up until the probability we are searching for is exceeded.\\
-	\begin{algorithm}
+Using a simple algroithm that evaluates performs a modified binary search to find the lowest value of $n$ for which    $P(W \geq 1) \geq  P_{\text{thresh}}$
+    \begin{algorithm}
     \begin{algorithmic}
-	\Procedure{tripleBirthday}{number of days : $m$, probabilty threshold : $P_{\text{thresh}}$}
-		\State$n \gets 0$
-		\While{$P_n < P_{\text{thresh}}$}
-			\State $n \gets n + 1$
+	\Procedure{Binary Seach Triple Birthday}{number of days : $m$, probabilty threshold : $P_{\text{thresh}}$}
+		\State $L \gets 3$		
+		\State $R \gets 2m+1$
+		\While{$L < R$}
+			\State $n \gets \text{floor}((L + R) / 2)$
 			\State sum $\gets 0$
 			\For{$i \gets 1, i < n/2, i \gets i + 1$}
 			\State $\text{sum} \gets \text{sum} \displaystyle + \frac{m!n!}{i!(n-2i)!(m-n+i)!2^i m^n }$
 			\EndFor
 			\State $ P_n \gets 1 - $ sum
-		\EndWhile\\
-		\Return $i$
+			\If{$P_n < P_{\text{thresh}}$}
+				\State	$L \gets n + 1$
+			\ElsIf{$P_n \geq P_{\text{thresh}}$}
+				\State $R \gets n$
+			\EndIf
+		\EndWhile
+		\Return $L$
 	\EndProcedure
 	\end{algorithmic}
     \end{algorithm}
+Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D: \mathbb{X} \to \mathbb{N} \cup \{0\}$ by $D(\mathbb{X}) = (m + 1) - n $
 
 As a reminder, when giving an algorithm as an answer, you
 are expected to give:
