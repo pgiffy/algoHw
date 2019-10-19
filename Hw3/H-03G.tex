@@ -116,7 +116,46 @@ each node (where each color is equally likely).
 \end{enumerate}
 
 \nextprob
-CLRS, Question 15-6.
+\begin{algorithm}
+\begin{algorithmic}
+\Procedure{DFSBestParty}{}
+	\State S.push $V_1$
+	\While{S is not empty}
+		\If{S.peek has not been marked}
+			\State S.peek.marked $\gets$ true
+			\If{S.peek has left child}
+				\State S.push S.peek.leftchild
+			\ElsIf{S.peek has right sibling}
+				\State S.push S.peek.rightsibling
+			\EndIf
+		\Else
+			\If{S.peek has left child}
+				\If{S.peek.leftchild.inbest $\geq$ S.peek.leftchild.outbest}
+					\State S.peek.inbest $\gets$ S.peek.leftchild.outbest + S.peek.cv
+					\State S.peek.outbest $\gets$ S.peek.leftchild.inbest
+				\Else
+					\State S.peek.inbest $\gets$ S.peek.leftchild.outbest + S.peek.cv
+					\State S.peek.outbest $\gets$ S.peek.leftchild.outbest
+				\EndIf
+			\Else
+				\State S.peek.inbest $\gets$ S.peek.cv
+				\State S.peek.outbest $\gets 0$
+			\EndIf
+			\State S.pop
+		\EndIf
+	\EndWhile
+	\If{$V_1$.inbest $\geq$ $V_1$.outbest}
+		\State bestList.append $V_1$.name
+		\State $V_1$.isin $\gets$ true
+	\Else
+		\State $V_1$.isin $\gets$ false
+	\EndIf
+	\State Walk the tree again appending every node appending every node whose parent is not and and which has an inbest > outbest
+	\Return bestList
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+This algorithm has a time complexity of $O(|V| + |E|)$ since it simply runs two depth first searches and thus has the same time complexity as DFS.
 
 \nextprob
 For the Greedy make change algorithm described in class on 10/02, describe the
