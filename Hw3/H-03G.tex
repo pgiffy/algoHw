@@ -8,8 +8,8 @@
 \newcommand{\N}{\mathbb{N}}
 %% UPDATE these variables:
 \renewcommand{\hwnum}{3}
-\author{Group: 7 Names: Peter Gifford, Kyle Brekke, Madison Henson, Ren Wall}
-\collab{None}
+\author{Group: 7}
+\collab{Peter Gifford, Kyle Brekke, Madison Henson, Ren Wall}
 \date{due: 18 October 2019}
 
 \begin{document}
@@ -54,9 +54,65 @@ Suppose we have a graph $G=(V,E)$ and three colors, and randomly assign a color
 each node (where each color is equally likely).
 \begin{enumerate}
     \item What is the probability that every edge has two different colors on
-        assigned to its two nodes?
+        assigned to its two nodes? \\
+        
+        Let $P(3-COLORING)$ be the probability that the graph is randomly colored such that no vertices share a connection with another vertex of the same color (henceforth referred to as a legal coloring). \\
+        
+        If $G$ is any connected graph $K_m$ for $m > 3$, then $P(3-COLORING)$ is 0. Additionally, if a clique $K_m$ exists within $G$, then the probability of its being a three coloring is also 0. This is due to the fact that three colors will be insufficient to form a legal coloring in said cliques. \\
+        
+        If $G$ is assumed to be a graph which contains no cliques with greater than 3 vertices, then it is possible to be legally colored. The probability that a graph of this type can be legally colored is contingent upon the arrangement of edges formed between each vertex, but can be calculated programmatically:
+        
+        \pagebreak
+        \begin{algorithm}
+        	\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
+        	\algtext*{Indent}
+        	\algtext*{EndIndent}
+        	\begin{algorithmic}
+        		\Procedure{threeColoringProbability}{graph} \newline
+        		\textbf{in: } graph - a graph with $|V|$ vertices and $|E|$ edges \\
+        		\textbf{out: } The probability the provided graph is randomly colored with a legal 3-coloring
+	        		\State $P_c \gets 1$
+		        		\ForAll{vertices $v$ in $graph$}
+			        		\If{$v$ is marked as colored}
+			        			\State\textbf{continue}
+			        		\Else
+			        			\If{$v$ is not connected to any other vertices in $graph$}
+			        				\State{Mark $v$ as colored}
+			        			\Else
+			        				\State{Mark $v$ as colored}
+			        				\State{\textbf{traverse} and color each vertex accessible from $v$:}
+			        			\Indent
+			        				\If{The current vertex is connected to only one other vertex}
+			        					\State{Mark the vertex as colored}
+			        					\State{$P_c \gets P_c * \frac{2}{3}$}
+			        				\EndIf
+			        				\If{No vertices connected to the current vertex are connected to each other}
+			        					\State{Mark the current vertex as colored}
+			        					\State{$P_c \gets P_c * \frac{2}{3}$}
+			        				\EndIf
+			        				\If{Two or more of the connected vertices are also connected to each other}
+			        					\State{Mark the current vertex}
+			        					\State{$P_c \gets P_c * \frac{1}{3}$}
+			        				\EndIf
+			        			\EndIndent
+			        			\State{\textbf{end traverse}}
+			        			\EndIf
+			        		\EndIf
+		        		\EndFor
+	        		\State return $P_c$
+        		\EndProcedure
+        	\end{algorithmic}
+        \end{algorithm} 
+    
+    The algorithm operates in \textbf{O}($|V|^2$) time. The algorithm functions such that it multiplies the base probability (1) by the probability of each vertex's coloring resulting in a legal 3-coloring, based off of the previously touched vertices. After completing, the algorithm should yield the probability of $G$ being randomly colored with a legal 3-coloring. Once again though, this algorithm only works when the graph can be legally colored in the first place. Unfortunately, determining whether a graph can be 3-colored is $NP-Complete$. \\
+    
+    The for loop in the algorithm can be represented with the decrementing function $D_F = |V| - i$, where the starting value is the number of vertices in $G$, $|V|$. The traversal can also be represented using a similar decrementing function $D_T = |V'| - i$, where $|V'|$ is the total number of vertices accessible from $v$. As such, we can confirm that the algorithm eventually terminates. \\
+    
+    The runtime invariant for the algorithm is that $0 < P_c <= 1$.
     \item What is the expected number of edges that have different colors
-        assigned to its two nodes?
+        assigned to its two nodes?\\
+        
+    The number of edges we expect to have different colorings on each end can be represented as $|E| * P_c$, where $|E|$ is the number of edges in $G$.
 \end{enumerate}
 
 \nextprob
