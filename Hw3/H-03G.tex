@@ -25,7 +25,7 @@ with the same birthday?
 
 The probability $P$ that there exists $W \geq 1$ three person birthday collision for any particular number of people $n$ for any particular number of possible birthdays $m$ can be calculated with the following function:
 $$P(W \geq 1) = 1 - \sum^{n/2}_{i=0} \frac{m!n!}{i!(n-2i)!(m-n+i)!2^i m^n }$$
-Using a simple algroithm that evaluates performs a modified binary search to find the lowest value of $n$ for which    $P(W \geq 1) \geq  P_{\text{thresh}}$
+Using a simple algroithm that performs a modified binary search to find the lowest value of $n$ for which    $P(W \geq 1) \geq  P_{\text{thresh}}$
     \begin{algorithm}
     \begin{algorithmic}
 	\Procedure{Binary Seach Triple Birthday}{number of days : $m$, probabilty threshold : $P_{\text{thresh}}$}
@@ -33,33 +33,21 @@ Using a simple algroithm that evaluates performs a modified binary search to fin
 		\State $R \gets 2m+1$
 		\While{$L < R$}
 			\State $n \gets \text{floor}((L + R) / 2)$
-			\State sum $\gets 0$
-			\For{$i \gets 1, i < n/2, i \gets i + 1$}
-			\State $\text{sum} \gets \text{sum} \displaystyle + \frac{m!n!}{i!(n-2i)!(m-n+i)!2^i m^n }$
-			\EndFor
-			\State $ P_n \gets 1 - $ sum
+			\State $\displaystyle P_n = 1 - \sum^{n/2}_{i=0} \frac{m!n!}{i!(n-2i)!(m-n+i)!2^i m^n }$
 			\If{$P_n < P_{\text{thresh}}$}
 				\State	$L \gets n + 1$
 			\ElsIf{$P_n \geq P_{\text{thresh}}$}
 				\State $R \gets n$
 			\EndIf
 		\EndWhile
-		\Return $L$
+		\State\Return $L$
 	\EndProcedure
 	\end{algorithmic}
-    \end{algorithm}
-Let $\mathbb{X}$ denote the state space of the algorithm. We define the function $D: \mathbb{X} \to \mathbb{N} \cup \{0\}$ by $D(\mathbb{X}) = (m + 1) - n $
+    \end{algorithm}\\
+The algorithm has three components to its runtime. The outermost serarch while loop which has a complexity of $O(\text{log}(m))$, the sum inside that loop which has a complexity of $O(m)$, and the inner value of the sum which has a complexity of $O(m(\text{log}(m)\text{log}(\text{log}(m)))^2 )$. The outermost loop has a decrementing function $D \colon \mathbb{X} \to \N \cup \{0\}$ defined $D( \mathbb{X}) = (L+R)/2 $ which gives it a time complexity of $O(log(m)$ since initially $L + R = 2m - 2$. The sums complexity is $O(m)$ because $n \in \{3,4,...,2m-1\}$. The calculation of the inner value of the sum is bound by the calculation of $m!$, which if the factiorial is calculated with the fastest available algorithms is $O(m(\text{log}(m)\text{log}(\text{log}(m)))^2 )$.
 
-As a reminder, when giving an algorithm as an answer, you
-are expected to give:
-\begin{itemize}
-    \item A prose explanation of the problem and algorithm.
-    \item Psuedocode.
-    \item The decrementing function for any loop or recursion, or a runtime
-        justification.
-    \item Justification of why the runtime is linear.
-    \item The loop invariant for any loops, with full justification.
-\end{itemize}
+The loop invarients of the main while loop are that $L \leq $ the minimum number of people requred for $P_n \geq P_{\text{thresh}}$, $R \geq $ the maximum number of people requred for $P_n \leq P_{\text{thresh}}$, and that $L \leq R$.
+
    
 \nextprob
 Suppose we have a graph $G=(V,E)$ and three colors, and randomly assign a color
