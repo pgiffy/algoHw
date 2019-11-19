@@ -14,14 +14,25 @@
 
 \section{Algorithm Description - Double Ratchet Algorithm}
 
-In communications sometimes it is useful to have that conversation be encrypted, whether it is employees communicating with each other about sensitive information, a whistleblower providing information about something, or people who are concerned about protecting their privacy. The Double Ratchet algorithm is an algorithm that is used by the encrypted messaging platform Signal and is the focus of our project. The Double Ratchet algorithm creates a secure way for two people to exchange messages through the use of a shared secret key. With many encryption algorithms once the key is discovered the encryption is compromised because a third party can decrypt all the messages being sent. The Double Ratchet algorithm solves this problem by consistently generating new keys that cannot be derived from prior keys. Every message generates a new one of these keys which can be used to decrypt the message meaning that having any single key will only give access to a singular message and cannot be used to retrieve any of the other keys making this more secure than algorithms that just use one secret key throughout the conversation. 
+In communications sometimes it is useful to have that conversation be encrypted, whether it is employees communicating with each other about sensitive information, a whistleblower providing information about something, or people who are concerned about protecting their privacy. The double ratchet algorithm is an algorithm that is used by the encrypted messaging platform Signal and is the focus of our project. The double ratchet algorithm creates a secure way for two people to exchange messages through the use of a shared secret key. With many encryption algorithms once the key is discovered the encryption is compromised because a third party can decrypt all the messages being sent. The double ratchet algorithm solves this problem by consistently generating new keys that cannot be derived from prior keys. \newline
 
-The Double Ratchet algorithm works due to using KDF chains, the symmetric-key ratchet, and the Diffie-Hellman ratchet. The Diffie-Hellman ratchet's output creates the input for the KDF chains which builds the symmetric-key ratchet. The Diffie Hellman ratchet works by
+Every message generates a new one of these keys which can be used to decrypt the message meaning that having any single key will only give access to a singular message and cannot be used to retrieve any of the other keys making this more secure than algorithms that just use one secret key throughout the conversation. the algorithm achieves this through the use of KDF chains. These are sets of KDF keys that can be applied to a set of input data to unscramble it. These provide a lot of extra security compared to standard encryption algorithms because at each step there are extra measures taken to ensure that there are no lapses in security. A key part of this is the replacement of keys over time. This is done using a combination of the the Diffie-Hellman ratchet to update the keys with a symmetric-key ratchet. Each message sent contains a header with the sender's current key. On most messages a new key will be generated and sent with the header. Using this new key being sent the receiver can use the DH ratchet step to generate the new private key to decrypt the message. Using these steps new private keys can keep being generated and using the DH step can securely decrypt the messages while also being able to send a public key to a different user. These steps are a big improvement in keeping out an attacker even if they discover the key once which adds extra security to just using the DH step with a standard key to decrypt messages.\newline
+ The double ratchet is also used to double down on certain aspects of network reliability. Messages could often be received in the incorrect order. Similar to the way that networks assign packets numbers to ensure that they are received in the correct order, the double ratchet attaches an order number to each message to make sure that the re-establishment of a private key is not started when a new public key is received out of order.\newline
+ 
+ Over all the double ratchet is a strong way of keeping an invasive third party from fully compromising a secure message thread. With time people get better and better at breaking through digital security. This means that developers need to create better ways to keep people out. While the double ratchet does not add security directly related to the access of keys beyond the already established Diffie-Hellman ratchet, the constant change of keys makes any breach reveal very little information because of the constantly changing key.\newline
+ 
+ \section{Improvements}
 
+\section{Psuedocode}
+    \begin{algorithm}
+    \begin{algorithmic}
+	\Procedure{Double Ratchet Algorithm}{}
 
+	\EndProcedure
+    	\end{algorithmic}
+    \end{algorithm}
 
-    
-Citation
+\section{Citation}
 
 "The Double Ratchet Algorithm." RSS, https://signal.org/dogs/specifications/doubleratchet/
 
