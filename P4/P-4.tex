@@ -22,12 +22,33 @@ Every message generates a new one of these keys which can be used to decrypt the
  Over all the double ratchet is a strong way of keeping an invasive third party from fully compromising a secure message thread. With time people get better and better at breaking through digital security. This means that developers need to create better ways to keep people out. While the double ratchet does not add security directly related to the access of keys beyond the already established Diffie-Hellman ratchet, the constant change of keys makes any breach reveal very little information because of the constantly changing key.\newline
  
  \section{Improvements}
-
 \section{Psuedocode}
+
     \begin{algorithm}
     \begin{algorithmic}
-	\Procedure{Double Ratchet Algorithm}{}
-
+	\Procedure{Initialize\_User}{$fullKey, sendHeader, receiverHeader$}
+		\State $self.fullKey \gets fullKey$
+		\State $self.sendHeader \gets sendHeader$\Comment{Used to encrypt the headers to add security}
+		\State $self.receiverHeader \gets receiverHeader$
+	\EndProcedure
+	\Procedure{Initialize\_User\_2}{$startPublicKey, secret, sendHeader, receiverHeader$}
+		\State $self.fullKey \gets getFullKey(startPublicKey, secret)$\Comment{Method exists elsewhere that takes the private key and public key and generates full DH key}
+		\State $self.publicKey \gets startPublicKey$
+		\State $self.privateKey \gets secret$
+		\State $self.sendHeader \gets sendHeader$
+		\State $self.receiverHeader \gets receiverHeader$
+	\EndProcedure
+	\Procedure{Send\_Message}{$recipient, message, publicKey, messageNumber$}
+		\State message $\gets$ generateEncryptedMesage(message, publicKey, messageNumber, sendHeader) \Comment{Another method assumes to exist that does the actual encryption part of the DH ratcher}
+		\State sendMessage(recipient, message)
+	\EndProcedure
+	\Procedure{Receive\_Message}{messageEncrypted}
+		\State message, header, newKey, messageNumber$\gets$ extractMessage(receiverHeader, messageEncrypted)
+		\State message $\gets$ decryptMessage(message, self.fullKey) \Comment{Another method that exists elsewhere to decrypt using the given key}
+		\State self.fullKey $\gets$ ADJUST\_KEYS(newKey)
+	\EndProcedure
+	\Procedure{Adjust\_Keys}{$newKey$}
+		\State self.fullKey $\gets$ generateFullKey(self.publicKey, newKey)
 	\EndProcedure
     	\end{algorithmic}
     \end{algorithm}
