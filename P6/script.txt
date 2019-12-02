@@ -1,0 +1,32 @@
+Double Ratchet Algorithm.
+
+The Double Ratchet algorithm is an encryption algorithm that relies on KDF chains that use a Diffie-Hellman ratchet and a symmetric-key ratchet together. This is useful because the way it works it means that if one of the keys is compromised the rest of the keys are not. (signal citation)
+
+Diagrams for explaining double ratchet.
+
+Text on screen saying "+1 Element: comparing Double Ratchet Algorithm, OTR, and PGP using XMPP."
+
+PGP, or pretty good privacy, is an encryption algorithm that uses  symmetric and asymmetric keys for data transferred across networks, and then public key cryptography, data compression, and hashing. (digitalguardian citation)
+
+(Diagram explaining PGP?)
+
+OTR is an encryption algorithm that uses a combination of the AES symmetric-key algorithm, the Diffie-Hellman key exchange and the SHA-2 hash function. This is somewhat similar to how the Double Ratchet Algorithm works. (securegroup blog link)
+
+(Diagrams explainging OTR?)
+
+The way that the encryption algorithms OTR, PGP, and the Double Ratchet algorithm are being compared is using the messaging application XMPP.(maybe expand more on this.)
+
+Show comparison stuff of DRA and OTR.
+
+Show comparison stuff of DRA and PGP.
+
+Discuss implications and other stuff about the comparison.
+
+Conclusions:
+
+Credits. (sources)
+
+“Le Fin”
+
+
+
