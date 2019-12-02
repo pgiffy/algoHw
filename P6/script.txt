@@ -22,7 +22,7 @@ Show comparison stuff of DRA and PGP.
 
 Discuss implications and other stuff about the comparison.
 
-Conclusions:
+Conclusions (this might be better to combine in with the implications of the comparisons?)
 
 Credits. (sources)
 
