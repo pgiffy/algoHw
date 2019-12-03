@@ -1,6 +1,6 @@
-Double Ratchet Algorithm.
+Double Ratchet Algorithm
 
-The Double Ratchet algorithm is an encryption algorithm that relies on KDF chains that use a Diffie-Hellman ratchet and a symmetric-key ratchet together. This is useful because the way it works it means that if one of the keys is compromised the rest of the keys are not. (signal citation)
+The Double Ratchet algorithm is an encryption algorithm for messaging that relies on KDF chains that use a Diffie-Hellman ratchet and a symmetric-key ratchet together. This is useful because the Diffie-Hellman and symmetric-key ratchet in conjunction mean that if one of the secret keys is compromised the rest of the keys are not. (signal citation)
 
 Diagrams for explaining double ratchet.
 
