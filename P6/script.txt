@@ -1,30 +1,24 @@
 Double Ratchet Algorithm
 
-The Double Ratchet algorithm is an encryption algorithm for messaging that relies on KDF chains that use a Diffie-Hellman ratchet and a symmetric-key ratchet together. This is useful because the Diffie-Hellman and symmetric-key ratchet in conjunction mean that if one of the secret keys is compromised the rest of the keys are not. (signal citation)
+(voiceover) The Double Ratchet algorithm is an encryption algorithm for messaging that relies on KDF chains that use a Diffie-Hellman ratchet and a symmetric-key ratchet together. This is useful because the Diffie-Hellman and symmetric-key ratchet in conjunction mean that if one of the secret keys is compromised the rest of the keys are not. (signal citation)
 
 Diagrams for explaining double ratchet.
 
 Text on screen saying "+1 Element: comparing Double Ratchet Algorithm, OTR, and PGP using XMPP."
 
-PGP, or pretty good privacy, is an encryption algorithm that uses  symmetric and asymmetric keys for data transferred across networks, and then public key cryptography, data compression, and hashing. (digitalguardian citation)
+(voiceover) PGP, or pretty good privacy, is an encryption algorithm that uses  symmetric and asymmetric keys for data transferred across networks, and then public key cryptography, data compression, and hashing. (digitalguardian citation)
 
 (Diagram explaining PGP?)
 
-OTR is an encryption algorithm that uses a combination of the AES symmetric-key algorithm, the Diffie-Hellman key exchange and the SHA-2 hash function. This is somewhat similar to how the Double Ratchet Algorithm works. (securegroup blog link)
+(voiceover) OTR is an encryption algorithm that uses a combination of the AES symmetric-key algorithm, the Diffie-Hellman key exchange and the SHA-2 hash function. This is somewhat similar to how the Double Ratchet Algorithm works. (securegroup blog link)
 
 (Diagrams explainging OTR?)
 
-The way that the encryption algorithms OTR, PGP, and the Double Ratchet algorithm are being compared is using the messaging application XMPP.(maybe expand more on this.)
+(voiceover)The way that the encryption algorithms OTR, PGP, and the Double Ratchet algorithm are being compared is using the messaging application XMPP. XMPP is(description of XMPP).
 
-Show comparison stuff of DRA and OTR.
+Show comparison stuff of DRA and OTR, and between DRA and PGP, this will be stuff in xmpp with some voiceover describing what's going on.
 
-Show comparison stuff of DRA and PGP.
-
-Discuss implications and other stuff about the comparison.
-
-Conclusions (this might be better to combine in with the implications of the comparisons?)
-
-Credits. (sources)
+(voiceover) Discuss the differences and similarities, pros and cons of the algorithms, etc.
 
 “Le Fin”
 
