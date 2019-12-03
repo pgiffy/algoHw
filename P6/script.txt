@@ -5,6 +5,7 @@ Double Ratchet Algorithm
 Diagrams for explaining double ratchet.
 
 Text on screen saying "+1 Element: comparing Double Ratchet Algorithm, OTR, and PGP using XMPP."
+(voiceover)The way that the encryption algorithms OTR, PGP, and the Double Ratchet algorithm are being compared is using the messaging application XMPP. XMPP is(description of XMPP).
 
 (voiceover) PGP, or pretty good privacy, is an encryption algorithm that uses  symmetric and asymmetric keys for data transferred across networks, and then public key cryptography, data compression, and hashing. (digitalguardian citation)
 
@@ -14,7 +15,7 @@ Text on screen saying "+1 Element: comparing Double Ratchet Algorithm, OTR, and 
 
 (Diagrams explainging OTR?)
 
-(voiceover)The way that the encryption algorithms OTR, PGP, and the Double Ratchet algorithm are being compared is using the messaging application XMPP. XMPP is(description of XMPP).
+
 
 Show comparison stuff of DRA and OTR, and between DRA and PGP, this will be stuff in xmpp with some voiceover describing what's going on.
 
