@@ -107,7 +107,7 @@ We set up this experiment by first choosing one computer to run everything on. W
 
 \section{Methods Used}
 
-Using system timers we tracked the time it takes for a merge of the same numbers to execute. We then adjusted the amount of threads to one, two, and four threads because this is how many cores my computer has and we want even numbers because this is splitting the values evenly. Using the random number generators from the respective languages, c++ and python, we ran each set of thread amount five times and averaged the resulting times to get a final average times. 
+Using system timers we tracked the time it takes for a merge of the same numbers to execute. We then adjusted the amount of threads to one, two, and four threads because this is how many cores my computer has and we want even numbers because this is splitting the values evenly. Using the random number generators from the respective languages, C++ and Python, we ran each set of thread amount five times and averaged the resulting times to get a final average times. 
 
 \section{Tables}
 
@@ -130,7 +130,7 @@ Using system timers we tracked the time it takes for a merge of the same numbers
 \end{axis}
 \end{tikzpicture}
 
-Looking at these results they are very odd. With python having more cores does decrease the amount of time from a single core. However once it is split into 4 cores it takes more time. We assume this is because the code breaks the operations into more threads at each merge step so two threads were being used to do one recursive step and two more threads are doing all rest of them. This combined with the time it takes to start a new thread are most likely the reason the time went up using more cores. \newline
+Looking at these results they are very odd. With Python having more cores does decrease the amount of time from a single core. However once it is split into 4 cores it takes more time. We assume this is because the code breaks the operations into more threads at each merge step so two threads were being used to do one recursive step and two more threads are doing all rest of them. This combined with the time it takes to start a new thread are most likely the reason the time went up using more cores. \newline
 
 For the C++ code the time increased then went back down most likely because of the thread start cost versus the amount of work they can put in which took it down once there were more cores being applied. 
 
